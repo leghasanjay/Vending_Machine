@@ -1,98 +1,139 @@
+#include "model.h"
 #include<unordered_map>
 #include<fstream>
-#include<string>
+#include<iostream>
+#include<vector>
+#include<string.h>
+#include<sstream>
+
 using namespace std;
-class Item;
-class Cart;
-class Product{
-    int id;
-    string name;
-    int price;
-    int stock;
 
-    public:
-    Product(){}
-    Product( int id, string name, int price,int stock) {
-        this->id = id;
-        this->name = name;
-        this->price = price;
-        this->stock = stock;
+vector<Product> products;
+
+void getproducts() {
+    products.clear();
+    ifstream infile;
+    infile.open("input.txt");
+    if(!infile){
+        cout<<"file can't be opened";
     }
-
-    string displayname() {
-        string s = to_string(id) + " -- " + name + "  Rs." + to_string(price) + "   Stock - " + to_string(stock) + "\n";
-        return s;
+    string line;
+    while(getline(infile,line)){
+        stringstream ss(line);
+        string x;
+        getline(ss,x,' ');
+        int id=stoi(x);
+        string name;
+        getline(ss,name,' ');
+        // x="";
+        getline(ss,x,' ');
+        int price = stoi(x);
+        // x="";
+        getline(ss,x,' ');
+        int stock = stoi(x);
+        Product newproduct(id,name,price,stock);
+        products.push_back(newproduct);    
     }
-    int getstock() {
-        return stock;
+    infile.close();
+}
+string showallproductsowner() {
+    string s;
+    for (auto i : products) {
+        s += i.displayname();
     }
-    friend class Item;
-    friend class Cart;
-};
-
-class Item {
-    Product product;
-    int qauntity;
-
-    public:
-    Item() {}
-    Item( Product product, int qauntity) {
-        this->product = product;
-        this->qauntity = qauntity;
+    return s;
+}
+string showallproducts() {
+    string s;
+    for (auto i: products) {
+        if (i.getstock() > 0) {
+            s += i.displayname();
+        }
     }
-
-    int getitemprice() {
-        return qauntity*product.price;
+    return s;
+}
+Product* chooseproduct() {
+    cout<< " Available Products : \n"<<showallproducts();
+    cout<<" Select the number of the Product : ";
+    int choice;
+    cin>>choice;
+    if(choice>products.size()){
+        cout<<" Product not found!";
+        return NULL;
     }
-    string getiteminfo() {
-        return " " + product.name + " x" + to_string(qauntity) + "     " + "Rs. " + to_string(qauntity*product.price) + "\n";
+    return &products[choice-1];
+}
+
+bool Checkout(Cart &cart){
+    if(cart.isEmpty()){
+        return false;
     }
-    friend class Cart;
-};
-
-class Cart{
-    unordered_map<int,Item> items;
-
-    public:
+    unordered_map<int,int> bought = cart.getcart();
+    int total=cart.getTotal();
+    cout<<" Please pay a total of Rs. "<<total<<endl;
+    int cash;
+    cin>>cash;
+    if(cash>=total){
+        ifstream file("input.txt");
+        ofstream ofile("temp.txt");
+        string line;
+        while(getline(file,line)) {
+            stringstream ss(line);
+            string newline;
+            string x;
+            getline(ss , x , ' ');
+            newline += x + " ";
+            int id = stoi(x);
+            getline(ss , x , ' ');
+            newline += x + " ";
+            getline(ss , x , ' ');
+            newline += x + " ";
+            getline(ss , x , ' ');
+            newline += to_string(stoi(x)-bought[id]) + "\n";
+            ofile << newline;
+        }
+        file.close();
+        ofile.close();
+        remove("input.txt");
+        rename("temp.txt" , "input.txt");
+        ofstream outfile("profit.txt",ios::app);
+        string x = cart.viewcart() + "\n";
+        
+        outfile << x;
+        outfile.close();
+        cout<<" Change -- Rs. "<<cash-total<<"\n";
+        cout<<" Thankyou for shopping :) \n";
+        return true;
+    }
+    else{
+        cout<<" Insuficient Cash\n";
+        return false;
+    }
+}
+void buyer(){
     
-    void addproduct(Product product) {
-        if (items.count(product.id) == 0) {
-            Item newItem(product,1);
-            items[product.id] = newItem;
+    int action;
+    Cart cart;
+    while(true){
+        cout<<"(1) Add Item\n"<<"(2) View Cart\n"<<"(3) Checkout\n";
+        cin>>action;
 
+        if(action==1){
+            Product* p = chooseproduct();
+            if (p != NULL) {
+                cart.addproduct(*p);
+            }
         }
-        else {
-            items[product.id].qauntity++;
+        
+        if(action==2){
+            string s=cart.viewcart();
+            cout<<s;
         }
-    }
-    int getTotal(){
-        int total=0;
-        for(auto item:items){
-            total=total+item.second.getitemprice();
-        }
-        return total;
-    }
 
-    string viewcart() {
-        if (items.empty()){
-            return "Cart is empty!";
+        if(action==3){
+            if(Checkout(cart)){
+                break;
+            }
         }
-        string s;
-        for (auto i: items) {
-            s += i.second.getiteminfo();
-        }
-        return s + " Total Price = Rs. " + to_string(getTotal())+"\n";
     }
-
-    bool isEmpty(){
-        return items.empty();
-    }
-    unordered_map<int,int> getcart() {
-        unordered_map<int,int> c;
-        for (auto i : items) {
-            c[i.first] = i.second.qauntity;
-        }
-        return c;
-    }
-
-};
+}

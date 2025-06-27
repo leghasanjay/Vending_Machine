@@ -1,3 +1,4 @@
+
 #include<unordered_map>
 #include<fstream>
 #include<iostream>
@@ -99,4 +100,4 @@ void owner() {
         }
     }
 
-}v
+}
