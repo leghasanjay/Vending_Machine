@@ -84,19 +84,19 @@ void owner() {
         if (ipass == password){
             cout<< "(1) Add Items\n(2) See Profit\n(3) Done\n";
             int action;
-            cin>>action;
-            if (action == 1) {
-                Additems();
-            }
-            if (action == 2) {
-                seeprofit();
-            }
-            if (action == 3) break; 
+//             cin>>action;
+//             if (action == 1) {
+//                 Additems();
+//             }
+//             if (action == 2) {
+//                 seeprofit();
+//             }
+//             if (action == 3) break; 
 
-        }
-        else{
-            cout<<"Wrong Password!";
-        }
-    }
+//         }
+//         else{
+//             cout<<"Wrong Password!";
+//         }
+//     }
 
-}v
+// }v
