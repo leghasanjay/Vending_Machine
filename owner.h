@@ -16,7 +16,7 @@ void Additems(){
     cin>>choice;
     if (choice == 1){
         ofstream outfile("input.txt",ios :: app);
-        int id = products.size() + 1;
+        // int id = products.size() + 1;
         cout<< " Enter name of product\n";
         string name;
         cin>>name;
