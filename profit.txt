@@ -15,3 +15,54 @@
  5Star-3D x1     Rs. 30
  KitKat x1     Rs. 30
  Total Price = Rs. 60
+ Kurkure x1     Rs. 20
+ Total Price = Rs. 20
+
+ Apple-Cider-Vinegar x1     Rs. 100
+ Total Price = Rs. 100
+
+ lolipop x2     Rs. 20
+ Total Price = Rs. 20
+
+ lolipop x2     Rs. 20
+ Total Price = Rs. 20
+
+ kurkure x1     Rs. 20
+ Total Price = Rs. 20
+
+ kurkure x1     Rs. 20
+ Total Price = Rs. 20
+
+ kurkure x1     Rs. 20
+ Total Price = Rs. 20
+
+ lolipop x1     Rs. 10
+ Total Price = Rs. 10
+
+ Lays x1     Rs. 20
+ Total Price = Rs. 20
+
+ lolipop x1     Rs. 10
+ Total Price = Rs. 10
+
+ Lays x1     Rs. 20
+ Total Price = Rs. 20
+
+ lolipop x3     Rs. 30
+ Total Price = Rs. 30
+
+ lolipop x1     Rs. 10
+ Total Price = Rs. 10
+
+ lolipop x1     Rs. 10
+ Total Price = Rs. 10
+
+ lolipop x1     Rs. 10
+ Total Price = Rs. 10
+
+ Gatorade x1     Rs. 50
+ Total Price = Rs. 50
+
+ lolipop x1     Rs. 10
+ Total Price = Rs. 10
+

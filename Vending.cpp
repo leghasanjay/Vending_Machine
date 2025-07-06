@@ -1,20 +1,26 @@
-#include<iostream>
-#include<string>
-// #include "model.h"
-// #include "buyer.h"
-#include "owner.h"
+#include <iostream>
+#include "model.h"
 using namespace std;
 
 int main() {
-    cout<<"Choose : \n(1) Buyer \n(2) Owner\n";
-    getproducts();
+    VendingMachine vm;
+    vm.loadProducts("input.txt");
+
+    cout << "Choose : \n(1) Buyer \n(2) Owner\n";
     int choice;
-    cin>>choice;
+    cin >> choice;
+
     if (choice == 1) {
-        buyer();
+        Buyer buyer;
+        buyer.shop(vm);
+    } else if (choice == 2) {
+        Owner owner;
+        owner.manage(vm);
+    } else {
+        cout << "Invalid choice. Exiting...\n";
     }
-    if (choice == 2) {
-        owner();
-    }
+
+    vm.saveProducts("input.txt");
+
     return 0;
 }
