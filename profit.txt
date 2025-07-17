@@ -69,3 +69,6 @@
  popcorn x1     Rs. 20
  Total Price = Rs. 20
 
+ lolipop x1     Rs. 10
+ Total Price = Rs. 10
+
